@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 use App\Models\User;
 use App\Models\Profile;
 
@@ -17,9 +20,9 @@ class ProfileController extends Controller
 
     public function edit($id){
 
-        $profiles = Profile::where('user_id',$id)->first();
+        $profile = Profile::where('user_id',$id)->first();
         
-        return view ('profile.edit', compact('profiles'));
+        return view ('profile.edit', compact('profile'));
     }
 
     public function update($id, Request $request){
@@ -40,6 +43,18 @@ class ProfileController extends Controller
             'image.max' => 'image size exceeded'
         ]);
 
+        $name = $request->input('name');
+        $pass = $request->input('pass');
+        $email = $request->input('email');
+        dd($email);
+
+        $phone = $request->input('phone');
+        $dob = $request->input('dob');
+        $address = $request->input('address');
+        $bio = $request->input('bio');
+
+        $profile = Profile::where('user_id',$id)->first();
+        
         if(request()->hasFile('image')){
             $destinationPath = 'uploads';
 
@@ -48,24 +63,22 @@ class ProfileController extends Controller
             $file_name = uniqid().".".$ext;
             
             request()->file('image')->move($destinationPath, $file_name);   
+            $profile->profile_image = $file_name;
         }
-
-        $name = $request->input('name');
-        $pass = $request->input('pass');
-        $phone = $request->input('phone');
-        $dob = $request->input('dob');
-        $address = $request->input('address');
-        $bio = $request->input('bio');
-
-        $profile = Profile::where('user_id',$id)->first();
-        
-        $profile->image = $file_name;
         $profile->phone = $phone;
-        $profile->dob = $dob;
-        $profile->address = $address;
-        $profile->bio = $bio;
+        $profile->profile_dob = $dob;
+        $profile->profile_address = $address;
+        $profile->profile_bio = $bio;
 
         $profile->save();
+
+        $user = User::where('id', $profile->user_id)->first();
+        dd($user);
+
+        $user->name = $name;
+        $user->password = Hash::make($pass);
+
+        return view ('profile.view', compact('profile'));
 
     }
 }
