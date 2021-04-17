@@ -4,6 +4,14 @@
 
 @section('template_body')
     <br> <br>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+            {{ $error}}
+        @endforeach
+    </div>
+    @endif
     
     <div class="container">
         <form action="{{route('update_profile', $profile->id)}}" method="post" enctype="multipart/form-data" class="border-dark">

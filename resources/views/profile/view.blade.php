@@ -8,7 +8,7 @@
         <div class="col-md-3 ms-md-auto">
         <div class="card text-white bg-dark mb-3" style="width: 14rem; height:600px;">
             <div class="card-header">
-                <a href="{{route('new_post')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="{{route('create_post',Auth::user()->id)}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi me-3" width="30%" height="80px"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-4">
                         <button class="btn btn-primary">New Post</button>
@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="nav-link active">
+                    <a href="{{ route('profile', Auth::user()->id) }}" class="nav-link active">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Profile
                     </a>
@@ -35,11 +35,27 @@
         <div class="col-md-4 ms-md-auto">
             <br> <br> <br> <br> <br>
             <div class="card border-dark mb-3" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+                
+                <img src="{{asset ('/uploads/'.$profile->profile_image)}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">
+                        <strong>
+                            {{Auth::user()->name}}
+                        </strong>
+                    </h5>
+                    <p class="card-text">
+                        
+                        <h6>
+                            <strong>
+                                <Address>
+                                    Email: {{Auth::user()->email}} <br>
+                                    Date of Birth: {{$profile->profile_dob}} <br>
+                                    Phone: {{$profile->phone}} <br>
+                                    Address: {{$profile->profile_address}} <br>
+                                </Address>
+                            </strong>
+                        </h6>
+                    </p>
                 </div>
             </div>
         </div>
@@ -55,18 +71,24 @@
             <br> <br>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title">Bio</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Bio</h5>
+                    {{--
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    --}}
+                    <p class="card-text">{{$profile->profile_bio}}</p>
+                    {{--
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    --}}
                 </div>
               </div>
         </div>
         
     </div>
+    
 
 
 
 
 @endsection
+
