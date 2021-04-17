@@ -36,13 +36,10 @@
                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('homepage')}}">{{__('Home')}}</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('homepage')}}">{{__('Travel Diary')}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> {{ __("Today's Blog") }} </a> {{ _('')}}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{{__('DropdownTag')}}</a>
+                        <a class="nav-link" href="#"> {{ __("Today's Blogs") }} </a> {{ _('')}}
                     </li>
                 </ul>
                 

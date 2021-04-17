@@ -1,5 +1,5 @@
 @extends('before_login.template')
-
+@section('template_title','Travel Diary')
 @section('template_css')
     <style>
         .search_button {

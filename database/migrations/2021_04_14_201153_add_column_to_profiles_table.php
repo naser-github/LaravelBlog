@@ -15,11 +15,8 @@ class AddColumnToProfilesTable extends Migration
     {
         Schema::table('profiles', function (Blueprint $table) {
             
-            $table->unsignedBigInteger('user_fk');
-            $table->foreign('user_fk')->references('id')->on('users');
-
-            $table->unsignedBigInteger('user_role_fk');
-            $table->foreign('user_role_fk')->references('id')->on('roles');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -35,11 +32,8 @@ class AddColumnToProfilesTable extends Migration
         });
 
         Schema::table('profiles', function (Blueprint $table) {
-            $table->dropForeign('profiles_user_fk_foreign');
-            $table->dropColumn('user_fk');
-
-            $table->dropForeign('profiles_user_role_fk_foreign');
-            $table->dropColumn('user_role_fk');
+            $table->dropForeign('profiles_user_id_foreign');
+            $table->dropColumn('user_id');
         });
     }
 }

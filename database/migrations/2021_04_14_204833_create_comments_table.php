@@ -18,8 +18,8 @@ class CreateCommentsTable extends Migration
             $table->string('comment_body');
             $table->timestamps();
 
-            $table->unsignedBigInteger('post_fk');
-            $table->foreign('post_fk')->references('id')->on('posts');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
@@ -34,7 +34,7 @@ class CreateCommentsTable extends Migration
 
         Schema::table('comments', function (Blueprint $table) {
             
-            $table->dropForeign('comments_post_fk_foreign');
+            $table->dropForeign('comments_post_id_foreign');
         });
     }
 }

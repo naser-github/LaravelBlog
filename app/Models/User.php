@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -44,6 +45,16 @@ class User extends Authenticatable
     public function user_posts(){
 
         return $this->belongsToMany('App\Models\Post');
+    }
+
+    public function role(){
+        
+        return $this->hasOne('App\Models\Role');
+    }
+
+    public function profile(){
+        
+        return $this->hasOne('App\Models\Profile');
     }
 
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
-@section('content')
+@section('template_title','Travel Diary\Register')
+@section('template_body')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -61,9 +61,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Sign Up As') }}</label>
+                            <div class="col-md-6 ">
+                                <select name="role_id" class="dropdown-item" style="background-color:rgba(151, 199, 206, 0.664) " id="role_id">
+                                <option value="Author">Author</option>
+                                <option value="Viewer">Viewer</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-dark">
                                     {{ __('Register') }}
                                 </button>
                             </div>
