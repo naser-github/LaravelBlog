@@ -16,4 +16,9 @@ class Post extends Model{
 
         return $this->belongsToMany('App\Models\User');
     }
+
+    public function postphotos(){
+        
+        return $this->morphMany('App\Models\PostPhoto', 'posted_photo');
+    }
 }

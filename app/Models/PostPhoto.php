@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostPhoto extends Model
 {
-    use HasFactory;
+    public function photoposts(){
+
+        return $this->morphOne('App\Models\Post', 'posted_photo'); 
+    }
 }

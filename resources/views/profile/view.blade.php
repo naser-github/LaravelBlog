@@ -8,7 +8,7 @@
         <div class="col-md-3 ms-md-auto">
         <div class="card text-white bg-dark mb-3" style="width: 14rem; height:600px;">
             <div class="card-header">
-                <a href="{{route('create_post',Auth::user()->id)}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="{{route('create_post')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi me-3" width="30%" height="80px"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-4">
                         <button class="btn btn-primary">New Post</button>
@@ -48,10 +48,10 @@
                         <h6>
                             <strong>
                                 <Address>
-                                    Email: {{Auth::user()->email}} <br>
-                                    Date of Birth: {{$profile->profile_dob}} <br>
-                                    Phone: {{$profile->phone}} <br>
-                                    Address: {{$profile->profile_address}} <br>
+                                    Email: {{Auth::user()->email}} <br> <br>
+                                    Date of Birth: {{$profile->profile_dob}} <br> <br>
+                                    Phone: {{$profile->phone}} <br> <br>
+                                    Address: {{$profile->profile_address}} <br> <br>
                                 </Address>
                             </strong>
                         </h6>

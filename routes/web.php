@@ -11,13 +11,14 @@ Route::get('/','App\Http\Controllers\HomepageController@home')->name('homepage')
 
 Route::group(['prefix' => '/profile'], function(){
     Route::get('/{id}','App\Http\Controllers\ProfileController@show')->name('profile');
+    
     Route::get('edit/{id}','App\Http\Controllers\ProfileController@edit')->name('edit_profile');
     Route::post('update/{id}','App\Http\Controllers\ProfileController@update')->name('update_profile');
 });
 Route::group(['prefix' => '/post'], function(){
 
-    Route::get('/create/{id}','App\Http\Controllers\PostController@create')->name('create_post');
-    Route::post('/store/{id}','App\Http\Controllers\PostController@create')->name('store_post');
+    Route::get('/create','App\Http\Controllers\PostController@create')->name('create_post');
+    Route::post('/store','App\Http\Controllers\PostController@store')->name('store_post');
 
 });
 
