@@ -20,6 +20,8 @@ Route::group(['prefix' => '/post'], function(){
     Route::get('/create','App\Http\Controllers\PostController@create')->name('create_post');
     Route::post('/store','App\Http\Controllers\PostController@store')->name('store_post');
 
+    Route::get('/show','App\Http\Controllers\PostController@show')->name('show_post');
+    Route::get('/open/{}','App\Http\Controllers\PostController@open')->name('open_post');
 });
 
 

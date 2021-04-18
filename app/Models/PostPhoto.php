@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostPhoto extends Model
 {
+    protected $guarded = [];
+    
     public function photoposts(){
 
         return $this->morphOne('App\Models\Post', 'posted_photo'); 

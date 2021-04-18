@@ -17,8 +17,8 @@
             </div>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    <a href="{{route('show_post')}}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16"></svg>
                     See Your Posts
                     </a>
                 </li>
