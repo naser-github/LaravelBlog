@@ -9,6 +9,7 @@ class Comment extends Model
 {
     public function commented_by(){
         
-        return $this->hasMany('App\Models\User', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }
+ 

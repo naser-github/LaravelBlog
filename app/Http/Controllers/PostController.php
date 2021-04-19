@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Tag;
+use App\Models\Post;
+use App\Models\PostPhoto;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 
-use App\Models\Tag;
-use App\Models\Post;
-use App\Models\PostPhoto;
+
+
 
 class PostController extends Controller
 {
@@ -55,7 +58,7 @@ class PostController extends Controller
 
 
         $images = $request->file('images');
-        
+
         if(request()->hasFile('images')){
 
             $destinationPath = 'posts';
@@ -69,28 +72,28 @@ class PostController extends Controller
             $post->postphotos()->create([
                 'photo_name' => $file_name
             ]);
-            
+
             }
         }
 
-        return back();
+        return redirect()->route('show_post');
     }
 
     public function show(){
 
         $posts = Post::orderBy('id','Desc')->get();
-        
+
         return view ('post.show', compact('posts'));
     }
 
     public function open($id){
-        
+
         $post = Post::where('id',$id)->first();
 
         $tags = Tag::all();
 
         $comments = Comment::where('post_id',$id)->get();
-        
+
         return view('post.open', compact('post','tags', 'comments'));
     }
 
@@ -99,7 +102,7 @@ class PostController extends Controller
         $post = Post::where('id',$id)->first();
 
         $tags = Tag::all();
-        
+
         return view('post.edit', compact('post','tags'));
     }
 
@@ -125,9 +128,39 @@ class PostController extends Controller
         $post->post_title = $title;
         $post->post_body = $post_body;
         $post->save();
+
+        return redirect()->route('open_post', ['id' => $id]);
+    }
+
+    public function delete($id){
+
+        $post = Post::where('id',$id)->first();
+
+        $users = $post->users;
+        $post->users()->detach($users);
+
+        $tags = $post->tags;
+        $post->tags()->detach($tags);
+
+        $photos = PostPhoto::where([
+            ['posted_photo_id',$id],
+            ['posted_photo_type','App\Models\Post']
+        ])->get();
         
-        return back();
-        // return redirect('/profile/open/{$id}');
+        if($photos){
+            $photos->each->delete();
+        }
+
+        $comments = Comment::where('post_id',$id)->get();
+
+        if($comments){
+            $comments->each->delete();
+        }
+
+        if($post){
+            $post->delete();
+        }
+
+        return redirect('/post/show');
     }
 }
- 

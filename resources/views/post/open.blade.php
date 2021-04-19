@@ -15,17 +15,22 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <button type="button" class="btn btn-warning btn-sm" style="margin-left: 87%;">
-                            <a href="{{route('edit_post',$post->id)}}" style="color: black;">
-                                Edit
-                            </a>    
-                        </button>
 
-                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 2%;">
-                            <a href="#" class="text-white ">
+
+                        <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
+                        @csrf
+                        @method('delete')
+
+                            <button type="button" class="btn btn-warning btn-sm" >
+                                <a href="{{route('edit_post',$post->id)}}" style="color: black;">
+                                    Edit
+                                </a>    
+                            </button>
+                            <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
                                 Delete
-                            </a>
-                        </button> 
+                            </button>
+
+                        </form>
 
                         <h6>
                             <strong>
@@ -80,11 +85,7 @@
                 <div class="row justify-content-end">
                     <div class="card col-10">
                         <div class="card-header">
-
-                            @foreach($comment->commented_by as $user)
-                                {{$user->name}}
-                            @endforeach
-
+                            {{$comment->commented_by->name}}
                         </div>
                         <div class="card-body">
                             {{$comment->comment_body}}

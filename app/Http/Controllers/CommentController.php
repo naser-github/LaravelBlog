@@ -24,7 +24,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return back();
+        return redirect()->route('open_post', ['id' => $id]);
 
 
     }
