@@ -1,56 +1,118 @@
-@foreach ($posts as $post)
-                    
-<div class="col-md-8 ms-md-auto">
-@foreach ($post->users as $user)
+@extends('layouts.app')
 
-@if($user->id == Auth::user()->id)
+@section('template_title','Travel Diary\post')
 
-    <br>
-    <div class="card">
-        <div class="card-body">
-            <h6>
-                <strong>
-                    Tags : 
-                    @foreach($post->tags as $post_tag)
-                    
-                    @foreach ($tags as $tag)
-                            
-                    @if( $post_tag->id == $tag->id)
-                    
-                    <button type="button" class="btn btn-dark btn-sm">
-                        <a href="#" class="text-white">
-                            {{$tag->tag_type}}
-                        </a>
-                    </button>
-                    @endif
+@section('template_body')
 
-                    @endforeach
-                    
-                    @endforeach
-                </strong>
-            </h6>
+    <div class="container">
+        <div class="col-md-12 ms-md-auto">
+        
+            @foreach ($post->users as $user)
 
-            <hr>
+                @if($user->id == Auth::user()->id)
 
-            <h5 class="card-title">{{$post->post_title}}</h5>
-            <p class="card-text">
-                {{$post->post_body}}
-            </p>
+                <br>
+                <div class="card">
+                    <div class="card-body">
 
-            @foreach ($post->postphotos as $photo)
+                        <button type="button" class="btn btn-warning btn-sm" style="margin-left: 87%;">
+                            <a href="{{route('edit_post',$post->id)}}" style="color: black;">
+                                Edit
+                            </a>    
+                        </button>
+
+                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 2%;">
+                            <a href="#" class="text-white ">
+                                Delete
+                            </a>
+                        </button> 
+
+                        <h6>
+                            <strong>
+                                Tags : 
+                                @foreach($post->tags as $post_tag)
+                                
+                                    @foreach ($tags as $tag)
+                                            
+                                        @if( $post_tag->id == $tag->id)
+                                        
+                                            <button type="button" class="btn btn-dark btn-sm">
+                                                <a href="#" class="text-white">
+                                                    {{$tag->tag_type}}
+                                                </a>
+                                            </button>
+
+                                            @break
+                                        @endif
+
+                                    @endforeach
+                                
+                                @endforeach
+                            </strong>
+                        </h6>
+
+                        <hr>
+
+                        <h5 class="card-title">{{$post->post_title}}</h5>
+                        <p class="card-text">
+                            {{$post->post_body}}
+                        </p>
+
+                        @foreach ($post->postphotos as $photo)
+                        
+                        <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 20rem;">
+                        
+                        @endforeach
+
+                        <p class="card-text" style="margin-left: 85%">
+                            <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
+                        </p>
+    
+                    </div>
+                                    
+                </div>
+                @endif
+
+            @endforeach
+            <hr> <br>
             
-            <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 24rem;">
-            
+            @foreach($comments as $comment)
+                <div class="row justify-content-end">
+                    <div class="card col-10">
+                        <div class="card-header">
+
+                            @foreach($comment->commented_by as $user)
+                                {{$user->name}}
+                            @endforeach
+
+                        </div>
+                        <div class="card-body">
+                            {{$comment->comment_body}}
+                        </div>
+                    </div>
+                </div>
             @endforeach
 
-            <p class="card-text" style="margin-left: 85%">
-                <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
-            </p>
-        </div>
+            <br>
+            <div class="row justify-content-end">
+                <div class="col-10">
+                <form action="{{route('add_comment', $post->id)}}" method="POST"  enctype="multipart/form-data">
+                @csrf
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="comment"></textarea>
+                        <br>
+
+                        <button type="submit" name="submit" class="btn btn-dark" style="margin-left: 83%;">
+                            Add Comment
+                        </button>
+
+                        <br> <br>
+                        
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div> 
     </div>
-@endif
+@endsection
 
-@endforeach
-</div>
-
-@endforeach

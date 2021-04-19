@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('template_title','Travel Diary\Login')
+@section('template_title','Travel Diary\posts')
 
 @section('template_body')
 
@@ -32,41 +32,38 @@
                     <hr>
                 </div>
             </div>
-
+            
+            <div class="col-md-8 ms-md-auto">
+            
             @foreach ($posts as $post)
-                    
-                <div class="col-md-8 ms-md-auto">
-                @foreach ($post->users as $user)
-
-                @if($user->id == Auth::user()->id)
                 
-                    <br>
-                    <div class="card">
-                        <div class="card-body">
-                            
-                            <h5 class="card-title">
-                                <a class="text-dark " href="route('open_post', $post->id)">
-                                    {{$post->post_title}}
-                                </a>
-                            </h5>
-                            
-                            <p class="card-text" style="margin-left: 85%">
-                                <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
-                            </p>
-                        </div>
-                    </div>
-                @endif
-        
-                @endforeach
-                </div>
-        
-            @endforeach
+            @foreach ($post->users as $user)
 
+            @if($user->id == Auth::user()->id)
+                
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                            
+                        <h5 class="card-title">
+                            <a class="text-dark " href="{{route('open_post', $post->id)}}">
+                                {{$post->post_title}}
+                            </a>
+                        </h5>
+                            
+                        <p class="card-text" style="margin-left: 85%">
+                            <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
+                        </p>
+                    </div>
+                </div>
+            @endif
+            @endforeach
+            @endforeach
+            </div>
         </div>
     </div>
 
-
-
-
 @endsection
+
+
 

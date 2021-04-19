@@ -21,7 +21,14 @@ Route::group(['prefix' => '/post'], function(){
     Route::post('/store','App\Http\Controllers\PostController@store')->name('store_post');
 
     Route::get('/show','App\Http\Controllers\PostController@show')->name('show_post');
-    Route::get('/open/{}','App\Http\Controllers\PostController@open')->name('open_post');
+    Route::get('/open/{id}','App\Http\Controllers\PostController@open')->name('open_post');
+
+    Route::get('/edit/{id}','App\Http\Controllers\PostController@edit')->name('edit_post');
+    Route::patch('/update/{id}','App\Http\Controllers\PostController@update')->name('update_post');
+
+    Route::delete('delete/{id}', 'App\Http\Controllers\PostController@delete')->name('delete_post');
 });
+
+Route::post('/add_comment/{id}','App\Http\Controllers\CommentController@add')->name('add_comment');
 
 

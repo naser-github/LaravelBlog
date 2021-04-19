@@ -57,4 +57,9 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Profile');
     }
 
+    public function comment(){
+        
+        return $this->belongsTo('App\Models\Comment');
+    }
+
 }
