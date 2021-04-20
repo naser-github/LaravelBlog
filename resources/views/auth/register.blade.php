@@ -66,7 +66,6 @@
                             <div class="col-md-6 ">
                                 <select name="role_id" class="dropdown-item" style="background-color:rgba(151, 199, 206, 0.664) " id="role_id">
                                 <option value="Author">Author</option>
-                                <option value="Viewer">Viewer</option>
                                 </select>
                             </div>
                         </div>

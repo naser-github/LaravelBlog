@@ -9,28 +9,28 @@
         
             @foreach ($post->users as $user)
 
-                @if($user->id == Auth::user()->id)
-
                 <br>
                 <div class="card">
                     <div class="card-body">
 
+                        @if($user->id == Auth::user()->id || Auth::user()->role_id == '3')
 
+                            <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
+                            @csrf
+                            @method('delete')
 
-                        <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
-                        @csrf
-                        @method('delete')
+                                <button type="button" class="btn btn-warning btn-sm" >
+                                    <a href="{{route('edit_post',$post->id)}}" style="color: black;">
+                                        Edit
+                                    </a>    
+                                </button>
+                                <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
+                                    Delete
+                                </button>
 
-                            <button type="button" class="btn btn-warning btn-sm" >
-                                <a href="{{route('edit_post',$post->id)}}" style="color: black;">
-                                    Edit
-                                </a>    
-                            </button>
-                            <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
-                                Delete
-                            </button>
+                            </form>
 
-                        </form>
+                        @endif
 
                         <h6>
                             <strong>
@@ -76,7 +76,7 @@
                     </div>
                                     
                 </div>
-                @endif
+                
 
             @endforeach
             <hr> <br>

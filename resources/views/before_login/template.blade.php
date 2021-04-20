@@ -10,7 +10,7 @@
 
     <style>
     .footer {
-        position: absolute;
+        position: relative;
         left: 0;
         bottom: 0%;
         width: 100%;
@@ -23,9 +23,9 @@
 </head>
 
 <body>
-    
+<div id="app">
     {{--navbar--}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="{{ asset ('image/look-1.png') }}" alt="logo" height="60" width="60"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -37,9 +37,6 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('homepage')}}">{{__('Travel Diary')}}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> {{ __("Today's Blogs") }} </a> {{ _('')}}
                     </li>
                 </ul>
                 
@@ -63,7 +60,7 @@
 
     @yield ('template_script')
 
-
+    </div>
 </body>
 
 </html>

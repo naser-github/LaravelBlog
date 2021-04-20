@@ -24,9 +24,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $posts = Post::all();
+    public function index(){
+        
+        $posts = Post::orderBy('id','Desc')->get();
 
         return view('home',compact('posts'));
     }
@@ -35,23 +35,26 @@ class HomeController extends Controller
         
         $search = $request->input('searching');
         
-        $result = Post::where('post_body', $search)->orWhere('post_title', 'like', '%' .$search. '%')->get();
-
-        if( is_null($result) ){
+        $result = Post::where('post_body', $search)->orWhere('post_title', 'like', '%' .$search. '%')->orderBy('id','Desc')->get();
+        
+        if( !empty($result[0]) ){
             return view ('search.result', compact('result'));
         }else{
-            $result = Tag::where('tag_type', $search)->orWhere('tag_type', 'like', '%' .$search. '%')->get();
+            // $result = Tag::where('tag_type', $search)->orWhere('tag_type', 'like', '%' .$search. '%')->orderBy('id','Desc')->get();
             
-            if( is_null($result) ){
-                return view ('search.result', compact('result'));
-            }else{
+            // if( !empty($result[0]) ){
+            //     return view ('search.result', compact('result'));
+            // }else{
                 $result = "No Result Found";
                 
                 return view ('search.result', compact('result'));
-            }
-        }
+            // }
+        }        
+    }
 
+    public function show($id){
         
+        return redirect()->route('open_post', ['id' => $id]);
     }
 }
  

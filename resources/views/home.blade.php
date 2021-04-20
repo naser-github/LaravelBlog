@@ -5,30 +5,48 @@
 @section('template_body')
 
     <br>
-    <div class="col-md-6 offset-md-3">
-        {{--search bar--}}
-        <div class="card bg-dark text-white">
-            <img src="{{ asset ('image/home-11.jpg') }}" class="card-img" alt="....." width="60" height="120">
-            <div class="card-img-overlay">
-                <form class="form-inline my-2 my-lg-0 justify-content-center" action="{{route('search')}}" method="POST">
-                @csrf
-                    
-                    <label for="search" class="form-label" style="margin-left: 4%;">
-                        <h3>Find what you seek &nbsp;</h3>
-                    </label>
-                    
-                    <input class="form-control mr-sm-2" placeholder="Search by Title or Tag" type="search" aria-label="Search" name="searching" required>
 
-                    <button class="btn btn-light search_button mt-2" type="submit" name="submit" style="margin-left: 60%;">
-                        Search
-                    </button>
+    
+    <div class="container">
 
-                </form>
+        <button class="btn btn-dark btn-lg" type="submit" name="submit" style="margin-left: 80%;">
+                <a href="{{route('create_post')}}" class="text-white" >
+                    Create New Post
+                </a>
+        </button>
+
+        @if(Auth::user()->role_id == 3)
+
+            <button class="btn btn-dark btn-lg" type="submit" name="submit" >
+                <a href="{{route('show_users')}}" class="text-white">
+                    Users List
+                </a>
+            </button>
+
+        @endif
+
+        <div class="col-md-6 offset-md-3">
+            {{--search bar--}}
+            <div class="card bg-dark text-white">
+                <img src="{{ asset ('image/home-11.jpg') }}" class="card-img" alt="....." width="60" height="120">
+                <div class="card-img-overlay">
+                    <form class="form-inline my-2 my-lg-0 justify-content-center" action="{{route('search')}}" method="POST">
+                    @csrf
+                        
+                        <label for="search" class="form-label" style="margin-left: 4%;">
+                            <h3>Find what you seek &nbsp;</h3>
+                        </label>
+                        
+                        <input class="form-control mr-sm-2" placeholder="Search by Title or Tag" type="search" aria-label="Search" name="searching" required>
+
+                        <button class="btn btn-light search_button mt-2" type="submit" name="submit" style="margin-left: 60%;">
+                            Search
+                        </button>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="container">
         <br> <hr>
         
         <div class="row justify-content-center">

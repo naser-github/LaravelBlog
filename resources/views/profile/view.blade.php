@@ -32,6 +32,7 @@
             <hr>
         </div>
         </div>
+        
         <div class="col-md-4 ms-md-auto">
             <br> <br> <br> <br> <br>
             <div class="card border-dark mb-3" style="width: 18rem;">

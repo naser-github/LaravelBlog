@@ -21,4 +21,9 @@ class Post extends Model{
         
         return $this->morphMany('App\Models\PostPhoto', 'posted_photo');
     }
+
+    public function post_comment(){
+        
+        return $this->hasMany('App\Models\Comment', 'post_id');
+    }
 }
