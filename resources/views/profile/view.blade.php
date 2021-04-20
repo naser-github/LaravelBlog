@@ -28,6 +28,17 @@
                     Profile
                     </a>
                 </li>
+                <li>
+                    <form action="{{route('delete_profile',Auth::user()->id)}}" method='POST'>
+                    @csrf
+                    @method('delete')
+
+                        <button type="submit" name="submit" class="btn btn-dark" style="margin-left: 10%;">
+                            Delete your Account
+                        </button>
+                    </form>
+                </li>
+
             </ul>
             <hr>
         </div>

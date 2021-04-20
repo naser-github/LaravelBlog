@@ -16,6 +16,8 @@ Route::group(['prefix' => '/profile'], function(){
     
     Route::get('edit/{id}','App\Http\Controllers\ProfileController@edit')->name('edit_profile');
     Route::post('update/{id}','App\Http\Controllers\ProfileController@update')->name('update_profile');
+
+    Route::delete('delete/{id}','App\Http\Controllers\ProfileController@delete')->name('delete_profile');
 });
 Route::group(['prefix' => '/post'], function(){
 
