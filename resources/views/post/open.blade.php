@@ -12,35 +12,33 @@
                 <br>
                 <div class="card">
                     <div class="card-body">
-
-                        @if($user->id == Auth::user()->id || Auth::user()->role_id == '3')
-
-                            <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
-                            @csrf
-                            @method('delete')
-
-                                <button type="button" class="btn btn-warning btn-sm" >
-                                    <a href="{{route('edit_post',$post->id)}}" style="color: black;">
-                                        Edit
-                                    </a>    
-                                </button>
-                                <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
-                                    Delete
-                                </button>
-
-                            </form>
-
-                        @endif
-
-                        <h6>
+                        <h4>
                             <strong>
+                            {{$post->post_title}}
+                            </strong>
+                        </h4>
+
+                        <hr>
+
+                        <p class="card-text">
+                            {{$post->post_body}}
+                        </p>
+
+                        @foreach ($post->postphotos as $photo)
+                        
+                        <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 20rem;">
+                        
+                        @endforeach
+                        <p class="card-text">
+                            <br>
+                            <h5 class="card-title" >
                                 Tags : 
                                 @foreach($post->tags as $post_tag)
-                                
+                                    
                                     @foreach ($tags as $tag)
-                                            
+                                                
                                         @if( $post_tag->id == $tag->id)
-                                        
+                                            
                                             <button type="button" class="btn btn-dark btn-sm">
                                                 <a href="#" class="text-white">
                                                     {{$tag->tag_type}}
@@ -53,25 +51,30 @@
                                     @endforeach
                                 
                                 @endforeach
-                            </strong>
-                        </h6>
-
-                        <hr>
-
-                        <h5 class="card-title">{{$post->post_title}}</h5>
-                        <p class="card-text">
-                            {{$post->post_body}}
+                                
+                                <small class="text-muted" style=" margin-left:85% ">Posted {{$post->created_at->diffForHumans() }}</small>
+                            </h5>
+                            <br>
                         </p>
 
-                        @foreach ($post->postphotos as $photo)
-                        
-                        <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 20rem;">
-                        
-                        @endforeach
+                        @if($user->id == Auth::user()->id || Auth::user()->role_id == '3')
 
-                        <p class="card-text" style="margin-left: 85%">
-                            <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
-                        </p>
+                        <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
+                        @csrf
+                        @method('delete')
+
+                            <button type="button" class="btn btn-warning btn-sm" >
+                                <a href="{{route('edit_post',$post->id)}}" style="color: black;">
+                                    Edit
+                                </a>    
+                            </button>
+                            <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
+                                Delete
+                            </button>
+
+                        </form>
+
+                        @endif
     
                     </div>
                                     

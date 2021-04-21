@@ -48,14 +48,34 @@
                 @foreach ($posts as $post)
                     <div class="card">
                         <div class="card-header">
-                            <a class="text-dark " href="{{route('show', $post->id)}}">
-                                {{$post->post_title}}
-                            </a>
+                        @foreach ($post->users as $author)
+                            {{$author->name}} 
+                        @endforeach
+                            
                         </div>
 
                         <div class="card-body">
+
+                            <a class="text-dark " href="{{route('show', $post->id)}}">
+                                <strong>
+                                    <h5>
+                                            
+                                        {{$post->post_title}}
+                                    </h5>
+                                </strong>    
+                            </a>
                             
+                            <p class="card-text">
+                                {{substr($post->post_body, 0, 50)}}
+                                <a class="text-dark " href="{{route('show', $post->id)}}">
+                                    <strong>
+                                        [see more]
+                                    </strong> 
+                                </a>
+                            </p>
+
                             <p class="card-text" style="margin-left: 85%">
+                            
                                 <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
                             </p>
 
@@ -67,6 +87,25 @@
         </div>
     </div>
 
+
+
+<script>
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
+}
+</script>
 
     <br> <br> <br> <br>
 

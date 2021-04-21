@@ -31,8 +31,7 @@
             <div class="mb-3 col-10">
                 <label for="post_body" class="form-label">Post</label>
                 <div class="form-floating">
-                    <textarea name="post_body" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required>
-                    </textarea>
+                    <textarea name="post_body" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
                 </div>
             </div>
 

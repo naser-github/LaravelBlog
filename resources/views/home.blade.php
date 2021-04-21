@@ -55,12 +55,32 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="text-dark " href="{{route('open_post', $post->id)}}">
-                                {{$post->post_title}}
+                            @foreach ($post->users as $author)
+                                {{$author->name}} 
+                            @endforeach
+                                
                             </a>
                         </div>
 
                         <div class="card-body">
+
+                            <a class="text-dark " href="{{route('show', $post->id)}}">
+                                <strong>
+                                    <h5>     
+                                        {{$post->post_title}}
+                                    </h5>
+                                </strong>    
+                            </a>
                             
+                            <p class="card-text">
+                                {{substr($post->post_body, 0, 50)}}
+                                <a class="text-dark " href="{{route('show', $post->id)}}">
+                                    <strong>
+                                        [see more]
+                                    </strong> 
+                                </a>
+                            </p>
+
                             <p class="card-text" style="margin-left: 85%">
                                 <small class="text-muted">Posted {{$post->created_at->diffForHumans() }}</small>
                             </p>
