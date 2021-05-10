@@ -41,7 +41,7 @@
                                             
                                             <button type="button" class="btn btn-dark btn-sm">
                                                 <a href="#" class="text-white">
-                                                    {{$tag->tag_type}}
+                                                    {{$tag->name}}
                                                 </a>
                                             </button>
 

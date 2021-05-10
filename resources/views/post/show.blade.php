@@ -4,6 +4,7 @@
 @section('template_body')
 
     <div class=".container-xxl">
+        
         <div class="row">
             <div class="col-md-3 ms-md-auto">
                 <div class="card text-white bg-dark mb-3" style="width: 14rem; height:600px;">
@@ -34,6 +35,12 @@
             </div>
             
             <div class="col-md-8 ms-md-auto">
+            
+            @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{session()->get('success')}}
+                </div>
+            @endif
             
             @foreach ($posts as $post)
                 

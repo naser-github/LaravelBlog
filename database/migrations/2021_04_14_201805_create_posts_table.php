@@ -17,6 +17,8 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('post_title');
             $table->string('post_body');
+            $table->string('thumbnail')->nullable();
+            $table->string('publish')->default('false');
             $table->timestamps();
         });
     }

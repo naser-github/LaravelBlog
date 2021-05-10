@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 
-
-
-
 class PostController extends Controller
 {
     public function create(){
@@ -28,7 +25,7 @@ class PostController extends Controller
         request()->validate([
             'title' => 'required|max:255',
             'post_body' => 'required|max:255',
-            'category.*' => 'required',
+            'category.*' => 'required|exists:tags,id',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:1000'
         ],[
             'images.mimes' => 'must be a jpeg,png,jpg file',
@@ -76,13 +73,13 @@ class PostController extends Controller
             }
         }
 
-        return redirect()->route('show_post');
+        return redirect()->route('show_post')->with('success','Post Created Successfully');
     }
 
     public function show(){
 
         $posts = Post::orderBy('id','Desc')->get();
-
+        // $posts = Post::paginate(2);
         return view ('post.show', compact('posts'));
     }
 

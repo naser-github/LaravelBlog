@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login','App\Http\Controllers\HomeController@index')->name('login');
 Auth::routes();
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/show/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('show');
@@ -19,6 +20,7 @@ Route::group(['prefix' => '/profile'], function(){
 
     Route::delete('delete/{id}','App\Http\Controllers\ProfileController@delete')->name('delete_profile');
 });
+
 Route::group(['prefix' => '/post'], function(){
 
     Route::get('/create','App\Http\Controllers\PostController@create')->name('create_post');
@@ -42,5 +44,18 @@ Route::group(['prefix' => '/admin'], function(){
     Route::patch('/changerole/{id}','App\Http\Controllers\AdminController@role')->name('change_role');
 
     Route::delete('/banuser/{id}','App\Http\Controllers\AdminController@ban')->name('ban_user');    
+});
+
+Route::group(['prefix'=> '/tag'],function(){
+    Route::get('/create','App\Http\Controllers\TagController@create')->name('create_tag');
+    Route::post('/store','App\Http\Controllers\TagController@store')->name('save_tag');
+
+    Route::get('/show','App\Http\Controllers\TagController@index')->name('show_tags');
+    Route::get('/show/{id}','App\Http\Controllers\TagController@each_tag')->name('show_tag');
+    
+    Route::get('/edit/{id}','App\Http\Controllers\TagController@edit')->name('edit_tag');
+    Route::patch('/update/{id}','App\Http\Controllers\TagController@update')->name('update_tag');
+
+    Route::delete('/delete/{id}','App\Http\Controllers\TagController@delete')->name('delete_tag');
 });
 
