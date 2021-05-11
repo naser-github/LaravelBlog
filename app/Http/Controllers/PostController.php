@@ -26,8 +26,10 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'post_body' => 'required|max:255',
             'category.*' => 'required|exists:tags,id',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:1000'
+            'images' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg|max:1000'
         ],[
+            'images.*.required' => 'Please Upload an image',
             'images.mimes' => 'must be a jpeg,png,jpg file',
             'images.max' => 'image size exceeded',
         ]);
@@ -97,6 +99,10 @@ class PostController extends Controller
     public function edit($id){
 
         $post = Post::where('id',$id)->first();
+
+        $selected_tag = $post->tags();
+
+        dd($selected_tag->each->id);
 
         $tags = Tag::all();
 

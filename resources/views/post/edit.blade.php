@@ -26,7 +26,7 @@
 --}}
             <div class="mb-3 col-10">
                 <label for="title" class="form-label">Post Title</label>
-                <input type="text" name="title" class="form-control" id="title" aria-describedby="title" required value="{{$post->post_title}}">
+                <input type="text" name="title" class="form-control @error ('title') is-invalid @enderror" id="title" aria-describedby="title" required value="{{$post->post_title}}">
             </div>
 
             <div class="mb-3 col-10">
@@ -35,25 +35,25 @@
                     <textarea name="post_body" class="form-control" id="floatingTextarea2" style="height: 100px" required >{{$post->post_body}}</textarea>
                 </div>
             </div>
-{{--
+
             <div class="mb-3 col-10">
                 <label for="category[]" class="form-label text-md-right">Chose A Category</label>
                 
                 <select name="category[]" class="dropdown-item" id="category[]" multiple required>
                     @foreach($tags as $tag)
                     
-                        <option value="{{ $tag->id }}">
-                            <strong> {{ $tag->tag_type }} </strong>
+                        <option value="{{ $tag->id }} {{}}">
+                            <strong> {{ $tag->name }} </strong>
                         </option>
                     
                     @endforeach
                 </select>
             </div>
---}}
+
             <button type="submit" name="submit" class="btn btn-dark" style="margin-left: 75%;">Submit</button>
         
         </form>
     </div>
 
-    
+    {{$selected_tags->contains($tag->id)? 'selected': ''}}
 @endsection

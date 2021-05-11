@@ -18,7 +18,7 @@
 
             <div class="mb-3 col-10" style="margin-left:60%;">
                 <label for="images[]" class="form-label @error ('images') is-invalid @enderror">Upload Images</label>
-                <input type="file" name="images[]" id="images[]" value="{{old('images[]')}}" multiple>
+                <input type="file" name="images[]" id="images[]" value="{{old('images')}}" multiple>
                 @error('images')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{$errors->first('images')}}</strong>
@@ -53,7 +53,9 @@
                 
                 <select name="category[]" class="dropdown-item" id="category[]" multiple required>
                     @foreach($tags as $tag)
-                        <option value="{{$tag->id}}">
+                        <option value="{{$tag->id}}" {{!empty(old('category') )?(in_array($tag->id,old('category'))? 'selected':'') : ''}}
+                        
+                        >
                             <strong> {{$tag->name}} </strong>
                         </option>                    
                     @endforeach

@@ -57,7 +57,7 @@
                             <br>
                         </p>
 
-                        @if($user->id == Auth::user()->id || Auth::user()->role_id == '3')
+                        @if($user->id == Auth::user()->id || Auth::user()->role_id == '2')
 
                         <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
                         @csrf
