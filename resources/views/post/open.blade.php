@@ -13,6 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>
+                            <img src="{{asset("/posts/$post->thumbnail")}}" class="img rounded-circle" style="margin-right:20px;" alt="img" width="100"> 
                             <strong>
                             {{$post->post_title}}
                             </strong>

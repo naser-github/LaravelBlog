@@ -32,7 +32,7 @@ class TagController extends Controller
 
     public function index()
     {
-        $tags = Tag::all();
+        $tags = Tag::paginate(7);
 
         return view('tag.index', compact('tags'));
     }

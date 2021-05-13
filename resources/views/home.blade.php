@@ -54,19 +54,29 @@
                 @foreach ($posts as $post)
                     <div class="card">
                         <div class="card-header">
-                            <a class="text-dark " href="{{route('open_post', $post->id)}}">
                             @foreach ($post->users as $author)
-                                {{$author->name}} 
+                                @php
+                                    $pic = $author->profile->profile_image;
+                                    $profile = $author->profile->id;
+                                @endphp
+                                    <h5>
+                                        <img src="{{asset("/uploads/$pic")}}" class="img rounded-circle" style="margin-right:15px;" alt="img" width="60">
+                                        <a class="text-dark text-decoration-none " href="{{route('profile', $profile)}}">
+                                            {{$author->name}}
+                                        </a>
+                                    </h5> 
                             @endforeach
                                 
-                            </a>
                         </div>
 
                         <div class="card-body">
 
                             <a class="text-dark " href="{{route('show', $post->id)}}">
                                 <strong>
-                                    <h5>     
+                                    <h5>
+                                        @if (!empty($post->thumbnail))
+                                        <img src="{{asset("/posts/$post->thumbnail")}}" class="img rounded-circle" style="margin-right:15px;" alt="img" width="60"> 
+                                        @endif
                                         {{$post->post_title}}
                                     </h5>
                                 </strong>    
@@ -89,6 +99,7 @@
                     </div>
                     <br>
                 @endforeach
+                {{ $posts->links() }}
             </div>
         </div>
     </div>

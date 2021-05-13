@@ -7,6 +7,9 @@
         <div class="row">
         <div class="col-md-3 ms-md-auto">
         <div class="card text-white bg-dark mb-3" style="width: 14rem; height:600px;">
+            
+            @if (Auth::user()->id == $profile->id)
+            
             <div class="card-header">
                 <a href="{{route('create_post')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi me-3" width="30%" height="80px"><use xlink:href="#bootstrap"></use></svg>
@@ -15,6 +18,7 @@
                     </span>
                 </a>
             </div>
+            
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="{{route('show_post')}}" class="nav-link text-white">
@@ -39,7 +43,10 @@
                     </form>
                 </li>
 
-            </ul>
+            </ul>    
+            
+            @endif
+            
             <hr>
         </div>
         </div>
@@ -75,11 +82,16 @@
         <div class="col-md-4 ms-md-auto">
 
             <br> <br> 
-            <button class="btn btn-dark" style="margin-left:70%; ">
-                <a class="text-white nav-link" href="{{route('edit_profile',Auth::user()->id)}}">
-                    Edit Profile
-                </a>
-            </button>
+            
+            @if (Auth::user()->id == $profile->id)
+
+                <button class="btn btn-dark" style="margin-left:70%; ">
+                    <a class="text-white nav-link" href="{{route('edit_profile',Auth::user()->id)}}">
+                        Edit Profile
+                    </a>
+                </button>
+
+            @endif
             <br> <br>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">

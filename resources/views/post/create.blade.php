@@ -16,12 +16,22 @@
         <form action="{{route('store_post')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
-            <div class="mb-3 col-10" style="margin-left:60%;">
+            <div class="mb-3" style="margin-left:60%;">
                 <label for="images[]" class="form-label @error ('images') is-invalid @enderror">Upload Images</label>
                 <input type="file" name="images[]" id="images[]" value="{{old('images')}}" multiple>
                 @error('images')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{$errors->first('images')}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="mb-3" style="margin-left:58%;>
+                <label for="thumbnail" class="form-label @error ('thumbnail') is-invalid @enderror">Upload a Thumbnail</label>
+                <input type="file" name="thumbnail" id="thumbnail" value="{{old('thumbnail')}}">
+                @error('thumbnail')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$errors->first('thumbnail')}}</strong>
                     </span>
                 @enderror
             </div>
@@ -47,6 +57,7 @@
                     @enderror
                 </div>
             </div>
+
 
             <div class="mb-3 col-10">
                 <label for="category[]" class="form-label text-md-right">Chose A Category</label>

@@ -7,8 +7,10 @@ use App\Models\Tag;
 use App\Models\Post;
 use App\Models\PostPhoto;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
@@ -26,8 +28,9 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'post_body' => 'required|max:255',
             'category.*' => 'required|exists:tags,id',
-            'images' => 'required',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg|max:1000'
+            'images' => '',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:1000',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg|max:1000',
         ],[
             'images.*.required' => 'Please Upload an image',
             'images.mimes' => 'must be a jpeg,png,jpg file',
@@ -37,11 +40,23 @@ class PostController extends Controller
         $title = $request->input('title');
         $post_body = $request->input('post_body');
         $categories = $request->input('category');
-
+        $thumbnail = $request->file('thumbnail');
+        
         $post = new Post;
 
         $post->post_title = $title;
         $post->post_body = $post_body;
+
+        if(!empty($thumbnail)){
+            $destinationPath = 'posts';
+            
+            $ext = $thumbnail->getClientOriginalExtension();
+
+            $file_name = uniqid().".".$ext;
+
+            $thumbnail->move($destinationPath, $file_name);
+            $post->thumbnail = $file_name;
+        }
 
         $post->save();
 
@@ -54,7 +69,6 @@ class PostController extends Controller
         $post->users()->attach(Auth::user()->id);
 
         $photo = new PostPhoto;
-
 
         $images = $request->file('images');
 
@@ -101,9 +115,7 @@ class PostController extends Controller
         $post = Post::where('id',$id)->first();
         
         $selected_tags = $post->tags()->pluck('tag_id');
-        
-        
-
+    
         $tags = Tag::all();
 
         return view('post.edit', compact('post','tags','selected_tags'));
@@ -130,6 +142,30 @@ class PostController extends Controller
 
         $post->post_title = $title;
         $post->post_body = $post_body;
+
+        if(request()->hasFile('thumbnail')){
+
+            request()->validate([
+                'thumbnail' => 'image|mimes:jpeg,png,jpg|max:1000',
+            ]);
+
+            $thumbnail = $request->file('thumbnail');
+
+            if(Storage::exists("posts/$post->thumbnail")){
+                Storage::delete("posts/$post->thumbnail");
+            }
+
+            $destinationPath = 'posts';
+            
+            $ext = $thumbnail->getClientOriginalExtension();
+
+            $file_name = uniqid().".".$ext;
+
+            $thumbnail->move($destinationPath, $file_name);
+            $post->thumbnail = $file_name;
+        }
+
+
         $post->save();
         
         $post->tags()->sync($categories);

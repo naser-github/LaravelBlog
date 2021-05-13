@@ -51,7 +51,11 @@
             </tr>
             @endforeach
         </table>
+        <div style="margin-left: 88%;">
+            {{ $tags->links() }}
+        </div>
     </div>
+    
 
 @endsection
 
