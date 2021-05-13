@@ -99,14 +99,14 @@ class PostController extends Controller
     public function edit($id){
 
         $post = Post::where('id',$id)->first();
-
-        $selected_tag = $post->tags();
-
-        dd($selected_tag->each->id);
+        
+        $selected_tags = $post->tags()->pluck('tag_id');
+        
+        
 
         $tags = Tag::all();
 
-        return view('post.edit', compact('post','tags'));
+        return view('post.edit', compact('post','tags','selected_tags'));
     }
 
     public function update($id, Request $request){
@@ -114,7 +114,7 @@ class PostController extends Controller
         request()->validate([
             'title' => 'required|max:255',
             'post_body' => 'required|max:255',
-            // 'category.*' => 'required',
+            'category.*' => 'required|exists:tags,id',
             // 'images.*' => 'image|mimes:jpeg,png,jpg|max:1000'
         ],[
             // 'images.mimes' => 'must be a jpeg,png,jpg file',
@@ -123,7 +123,7 @@ class PostController extends Controller
 
         $title = $request->input('title');
         $post_body = $request->input('post_body');
-        // $categories = $request->input('category');
+        $categories = $request->input('category');
 
 
         $post = Post::where('id',$id)->first();
@@ -131,7 +131,8 @@ class PostController extends Controller
         $post->post_title = $title;
         $post->post_body = $post_body;
         $post->save();
-
+        
+        $post->tags()->sync($categories);
         return redirect()->route('open_post', ['id' => $id]);
     }
 

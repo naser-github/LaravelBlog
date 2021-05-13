@@ -2,19 +2,23 @@
 
 @section('template_title','Travel Diary \ New Post')
 
+@section('template_css')
+
+
+@endsection
+
 @section('template_body')
 
-<br> <br>
+    <div class="container py-5">
+        
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                {{ $error}}
+            @endforeach
+        </div>
+        @endif
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        @foreach($errors->all() as $error)
-            {{ $error}}
-        @endforeach
-    </div>
-    @endif
-    
-    <div class="container">
         <form action="{{route('update_post', $post->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('Patch')
@@ -36,13 +40,13 @@
                 </div>
             </div>
 
-            <div class="mb-3 col-10">
+            <div class="mb-3 col-10 form-group">
                 <label for="category[]" class="form-label text-md-right">Chose A Category</label>
                 
-                <select name="category[]" class="dropdown-item" id="category[]" multiple required>
+                <select name="category[]"  class="dropdown-item" id="category[]" multiple required>
                     @foreach($tags as $tag)
                     
-                        <option value="{{ $tag->id }} {{}}">
+                        <option value="{{ $tag->id }}" {{$selected_tags->contains($tag->id)?'selected':''}}>
                             <strong> {{ $tag->name }} </strong>
                         </option>
                     
@@ -54,6 +58,4 @@
         
         </form>
     </div>
-
-    {{$selected_tags->contains($tag->id)? 'selected': ''}}
 @endsection

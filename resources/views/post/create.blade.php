@@ -51,19 +51,27 @@
             <div class="mb-3 col-10">
                 <label for="category[]" class="form-label text-md-right">Chose A Category</label>
                 
-                <select name="category[]" class="dropdown-item" id="category[]" multiple required>
+                <select name="category[]" class="form-control" id="category" multiple required>
                     @foreach($tags as $tag)
-                        <option value="{{$tag->id}}" {{!empty(old('category') )?(in_array($tag->id,old('category'))? 'selected':'') : ''}}
-                        
-                        >
+                        <option value="{{$tag->id}}" {{!empty(old('category') )?(in_array($tag->id,old('category'))? 'selected':'') : ''}}>
                             <strong> {{$tag->name}} </strong>
                         </option>                    
                     @endforeach
                 </select>
             </div>
+
             <button type="submit" name="submit" class="btn btn-dark">Submit</button>
         
         </form>
     </div>  
 @endsection
 
+
+@section('template_script')
+
+    <script>
+        $(function() {
+            $('#category').select2();
+        });
+    </script>
+@endsection

@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+    
 
     @yield('template_css')
     
@@ -86,5 +88,7 @@
         @yield('template_body')
         
     </div>
+    <script src="vendor/select2/dist/js/select2.min.js"></script>
+    @yield('template_script')
 </body>
 </html>

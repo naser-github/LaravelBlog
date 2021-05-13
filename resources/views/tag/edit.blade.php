@@ -19,7 +19,7 @@
     
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong> {{$errors->first('name')}} </strong>
+                                        <strong> {{$errors->first('name')}}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -27,7 +27,12 @@
                             <div class="Form-group">
                                 <label for="description" class="form-label">Tag Description</label>
                                 <div class="form-floating">
-                                    <textarea name="description" class="form-control @error('description')@enderror" placeholder="Write a Description about this tag" id="floatingTextarea2" style="height: 100px"  required>@error('description')<span class="invalid-feedback" role="alert"><strong> {{$errors->first('description')}} </strong></span>@enderror{{empty(old('description'))?$tag->description:old('description')}}</textarea>
+                                    <textarea name="description" class="form-control @error('description')@enderror" placeholder="Write a Description about this tag" id="floatingTextarea2" style="height: 100px">{{empty(old('description'))?$tag->description:old('description')}}</textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{$errors->first('description')}}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <br>

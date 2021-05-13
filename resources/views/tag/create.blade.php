@@ -28,7 +28,7 @@
                             <div class="Form-group">
                                 <label for="description" class="form-label">Tag Description</label>
                                 <div class="form-floating">
-                                    <textarea name="description" class="form-control @error('description')@enderror" placeholder="Write a Description about this tag" id="floatingTextarea2" style="height: 100px" required>{{old('description')}}</textarea>
+                                    <textarea name="description" class="form-control @error('description')@enderror" placeholder="Write a Description about this tag" id="floatingTextarea2" style="height: 100px">{{old('description')}}</textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong> {{$errors->first('description')}} </strong>\
@@ -36,6 +36,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            
                             <br>
                             <button type="submit" name="submit" class="btn btn-dark">Submit</button>
                         
@@ -48,4 +49,3 @@
 
     
 @endsection
-
