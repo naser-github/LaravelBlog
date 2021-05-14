@@ -6,12 +6,14 @@ use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\PostPhoto;
+use App\Models\Like;
 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Response;
 
 class PostController extends Controller
 {
@@ -202,5 +204,24 @@ class PostController extends Controller
         }
 
         return redirect('/post/show');
+    }
+
+    public function like($id){
+        
+        $post = Post::where('id',$id)->first();
+        
+        $exist = $post->PostLike()->where('user_id',Auth::user()->id)->first();
+
+        if(!empty($exist)){
+
+            $exist->delete();
+
+        }else{
+            $post->PostLike()->create([
+                'user_id' => Auth::user()->id
+            ]);
+        }
+
+        return back();
     }
 }

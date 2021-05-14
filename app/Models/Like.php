@@ -5,12 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PostPhoto extends Model
+class Like extends Model
 {
-    protected $guarded = [];
-    
-    public function photoposts(){
+    use HasFactory;
 
+    protected $guarded = [];
+
+    public function LikeUser(){
+        
+        return $this->morphTo();
+    }
+
+    public function LikePost(){
+            
         return $this->morphTo();
     }
 }

@@ -35,8 +35,6 @@ Route::group(['prefix' => '/post'], function(){
     Route::delete('/delete/{id}', 'App\Http\Controllers\PostController@delete')->name('delete_post');
 });
 
-Route::post('/add_comment/{id}','App\Http\Controllers\CommentController@add')->name('add_comment');
-
 Route::group(['prefix' => '/admin'], function(){
 
     Route::get('/users','App\Http\Controllers\AdminController@index')->name('show_users');
@@ -58,4 +56,8 @@ Route::group(['prefix'=> '/tag'],function(){
 
     Route::delete('/delete/{id}','App\Http\Controllers\TagController@delete')->name('delete_tag');
 });
+
+Route::post('/add_comment/{id}','App\Http\Controllers\CommentController@add')->name('add_comment');
+
+Route::post('/post/{id}/like','App\Http\Controllers\PostController@like')->name('add_like');
 

@@ -8,80 +8,80 @@
         <div class="col-md-12 ms-md-auto">
         
             @foreach ($post->users as $user)
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h4>
+                        <img src="{{asset("/posts/$post->thumbnail")}}" class="img rounded" style="margin-right:20px;" alt="img" width="100">
+                        <strong>
+                        {{$post->post_title}}
+                        </strong>
+                    </h4>
 
-                <br>
-                <div class="card">
-                    <div class="card-body">
-                        <h4>
-                            <img src="{{asset("/posts/$post->thumbnail")}}" class="img rounded-circle" style="margin-right:20px;" alt="img" width="100"> 
-                            <strong>
-                            {{$post->post_title}}
-                            </strong>
-                        </h4>
+                    <hr>
 
-                        <hr>
+                    <p class="card-text">
+                        {{$post->post_body}}
+                    </p>
 
-                        <p class="card-text">
-                            {{$post->post_body}}
-                        </p>
-
-                        @foreach ($post->postphotos as $photo)
-                        
-                        <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 20rem;">
-                        
-                        @endforeach
-                        <p class="card-text">
-                            <br>
-                            <h5 class="card-title" >
-                                Tags : 
-                                @foreach($post->tags as $post_tag)
-                                    
-                                    @foreach ($tags as $tag)
-                                                
-                                        @if( $post_tag->id == $tag->id)
+                    @foreach ($post->postphotos as $photo)
+                    
+                    <img src="{{asset ('/posts/'.$photo->photo_name)}}" class="card-img-bottom" alt="..." style="width: 20rem;">
+                    
+                    @endforeach
+                    <p class="card-text">
+                        <br>
+                        <h5 class="card-title" >
+                            Tags : 
+                            @foreach($post->tags as $post_tag)
+                                
+                                @foreach ($tags as $tag)
                                             
-                                            <button type="button" class="btn btn-dark btn-sm">
-                                                <a href="#" class="text-white">
-                                                    {{$tag->name}}
-                                                </a>
-                                            </button>
+                                    @if( $post_tag->id == $tag->id)
+                                        
+                                        <button type="button" class="btn btn-dark btn-sm">
+                                            <a href="#" class="text-white">
+                                                {{$tag->name}}
+                                            </a>
+                                        </button>
+                                        @break
+                                    @endif
 
-                                            @break
-                                        @endif
-
-                                    @endforeach
-                                
                                 @endforeach
-                                
-                                <small class="text-muted" style=" margin-left:85% ">Posted {{$post->created_at->diffForHumans() }}</small>
-                            </h5>
-                            <br>
-                        </p>
+                            
+                            @endforeach
+                            
+                            <small class="text-muted" style=" margin-left:85% ">Posted {{$post->created_at->diffForHumans() }}</small>
+                        </h5>
+                    </p>
+
+                    <div class="card-footer">
+                        <p>{{$post->PostLike()->count()}} Peolple  Liked This Post</p>
+                        <form action="{{route('add_like', $post->id)}}" method="POST">
+                        @csrf
+                            <button type="submit" class="btn-sm {{$post->LikedBy()? 'btn-danger': 'btn-dark'}}">
+                                {{$post->LikedBy()? 'dislike': 'like'}}
+                            </button>
+                        </form>
 
                         @if($user->id == Auth::user()->id || Auth::user()->role_id == '2')
 
                         <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
                         @csrf
                         @method('delete')
+                            
+                            <a href="{{route('edit_post',$post->id)}}" style="color: black;" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
 
-                            <button type="button" class="btn btn-warning btn-sm" >
-                                <a href="{{route('edit_post',$post->id)}}" style="color: black;">
-                                    Edit
-                                </a>    
-                            </button>
                             <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
                                 Delete
                             </button>
-
                         </form>
-
                         @endif
-    
                     </div>
-                                    
-                </div>
-                
-
+                </div>                    
+            </div>
             @endforeach
             <hr> <br>
             
