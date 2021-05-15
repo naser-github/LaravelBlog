@@ -33,6 +33,11 @@ Route::group(['prefix' => '/post'], function(){
     Route::patch('/update/{id}','App\Http\Controllers\PostController@update')->name('update_post');
 
     Route::delete('/delete/{id}', 'App\Http\Controllers\PostController@delete')->name('delete_post');
+
+    
+    Route::post('/add_comment/{id}','App\Http\Controllers\CommentController@add')->name('comment_post');
+    Route::post('/{id}/like','App\Http\Controllers\PostController@like')->name('like_post');
+    Route::post('{id}/share','App\Http\Controllers\PostController@share')->name('share_post');
 });
 
 Route::group(['prefix' => '/admin'], function(){
@@ -56,8 +61,4 @@ Route::group(['prefix'=> '/tag'],function(){
 
     Route::delete('/delete/{id}','App\Http\Controllers\TagController@delete')->name('delete_tag');
 });
-
-Route::post('/add_comment/{id}','App\Http\Controllers\CommentController@add')->name('add_comment');
-
-Route::post('/post/{id}/like','App\Http\Controllers\PostController@like')->name('add_like');
 

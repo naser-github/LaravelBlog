@@ -37,4 +37,17 @@ class Post extends Model{
         
         return $this->PostLike()->where('user_id',Auth::user()->id)->exists();
     }
+
+    protected static function boot(){
+
+        parent::boot();
+
+        self::updated(function($own){
+            
+            dd($own->id);
+        });
+    }
+
+
 }
+;

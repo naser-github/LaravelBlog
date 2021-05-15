@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Post;
 use App\Models\PostPhoto;
 use App\Models\Like;
+use App\Models\User;
 
 
 use Illuminate\Http\Request;
@@ -223,5 +224,33 @@ class PostController extends Controller
         }
 
         return back();
+    } 
+
+    public function share($id, Request $request){
+        
+        $post = Post::whereId($id)->first();
+        
+        if(!empty($post)){
+            $shared_email = $request->input('email');
+
+            $user = User::whereEmail($shared_email)->first();
+            
+            if(!empty($user)){
+                
+                $post->users()->attach($user->id);
+                
+                return back()->with('success','User Added Successfully');
+
+            }else{
+
+                return back()->with('errors','User does not exist');
+            }
+        }else{
+            return back();
+        }
+        
+        
+        
+        
     }
 }

@@ -4,10 +4,7 @@
 
 @section('template_body')
 
-    <br>
-
-    
-    <div class="container">
+    <div class="container py-5">
 
         <button class="btn btn-dark btn-lg" type="submit" name="submit" style="margin-left: 80%;">
                 <a href="{{route('create_post')}}" class="text-white" >
@@ -54,18 +51,14 @@
                 @foreach ($posts as $post)
                     <div class="card">
                         <div class="card-header">
-                            @foreach ($post->users as $author)
-                                @php
-                                    $pic = $author->profile->profile_image;
-                                    $profile = $author->profile->id;
-                                @endphp
-                                    <h5>
-                                        <img src="{{asset("/uploads/$pic")}}" class="img rounded-circle" style="margin-right:15px;" alt="img" width="60">
-                                        <a class="text-dark text-decoration-none " href="{{route('profile', $profile)}}">
-                                            {{$author->name}}
-                                        </a>
-                                    </h5> 
-                            @endforeach
+                            <h5>
+                                
+                                @foreach ($post->users as $author)
+                                    <a class="text-dark text-decoration-none " href="{{route('profile', $author->id)}}">
+                                        {{$author->name}}
+                                    </a>
+                                @endforeach
+                            </h5>
                                 
                         </div>
 
