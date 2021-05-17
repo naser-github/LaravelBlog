@@ -109,18 +109,48 @@
                         @foreach ($post->users as $user)
                             @if($user->id == Auth::user()->id || Auth::user()->role_id == '2')
 
-                            <form action="{{route('delete_post',$post->id)}}" method="Post" style="margin-left: 87%;">
-                            @csrf
-                            @method('delete')
-                                
-                                <a href="{{route('edit_post',$post->id)}}" style="color: black;" class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
+                            <span style="white-space: nowrap" class="col-md-1 offset-md-10">
 
-                                <button type="submit" name="delete" class="btn btn-danger btn-sm" style="margin-left: 2%;">
-                                    Delete
-                                </button>
-                            </form>
+                            <a href="{{route('edit_post',$post->id)}}" style="color: black;" class="btn btn-warning ">
+                                Edit
+                            </a>
+
+                            <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left:1%;">
+                                Delete
+                            </button>
+
+                            </span>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Delete Post</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this post?
+                                            <form action="{{route('delete_post',$post->id)}}" method="Post">
+                                                @csrf
+                                                @method('delete')
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                No
+                                            </button>
+                                            <button type="submit" name="delete" class="btn btn-danger">
+                                                Proceed
+                                            </button>
+                                            
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
                             @endif
                         @endforeach
                     </div>
@@ -133,8 +163,9 @@
                     <div class="card col-10">
                         <div class="card-header">
                             {{$comment->commented_by->name}}
+                            {{-- ] --}}
                         </div>
-                        <div class="card-body">
+                        <div class="card-body"> 
                             {{$comment->comment_body}}
                         </div>
                     </div>

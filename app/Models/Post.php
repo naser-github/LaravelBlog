@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Post extends Model{
 
@@ -42,9 +43,19 @@ class Post extends Model{
 
         parent::boot();
 
-        self::updated(function($own){
-            
-            dd($own->id);
+        self::updated(function($post){
+
+            if($post->publish=="true"){
+                
+                $users = $post->users;
+
+                foreach($users as $user){
+                    
+                    Mail::raw('Your post has been published',function($message) use($user){
+                        $message->to($user->email,$user->name)->subject('Published ');
+                    });
+                }
+            }
         });
     }
 
