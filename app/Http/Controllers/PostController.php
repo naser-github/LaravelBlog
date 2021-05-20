@@ -104,13 +104,18 @@ class PostController extends Controller
 
     public function open($id){
 
-        $post = Post::where('id',$id)->first();
+        if($post = Post::where('id',$id)->first()){
+            $tags = Tag::all();
 
-        $tags = Tag::all();
+            $comments = Comment::where('post_id',$id)->get();
 
-        $comments = Comment::where('post_id',$id)->get();
+            return view('post.open', compact('post','tags', 'comments'));
+        }else{
+            return back();
+        }
+            
 
-        return view('post.open', compact('post','tags', 'comments'));
+        
     }
 
     public function edit($id){

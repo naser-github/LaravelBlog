@@ -49,7 +49,7 @@ Route::group(['prefix' => '/admin'], function(){
     Route::delete('/banuser/{id}','App\Http\Controllers\AdminController@ban')->name('ban_user');    
 });
 
-Route::group(['prefix'=> '/tag'],function(){
+Route::group(['prefix'=> '/tag','middleware' => ['admin'] ],function(){
     Route::get('/create','App\Http\Controllers\TagController@create')->name('create_tag');
     Route::post('/store','App\Http\Controllers\TagController@store')->name('save_tag');
 
@@ -62,3 +62,4 @@ Route::group(['prefix'=> '/tag'],function(){
     Route::delete('/delete/{id}','App\Http\Controllers\TagController@delete')->name('delete_tag');
 });
 
+ 

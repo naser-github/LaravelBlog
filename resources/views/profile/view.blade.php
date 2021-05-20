@@ -59,7 +59,7 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <strong>
-                            {{Auth::user()->name}}
+                            {{$profile->user->name}}
                         </strong>
                     </h5>
                     <p class="card-text">
@@ -67,7 +67,7 @@
                         <h6>
                             <strong>
                                 <Address>
-                                    Email: {{Auth::user()->email}} <br> <br>
+                                    Email: {{$profile->user->email}} <br> <br>
                                     Date of Birth: {{$profile->profile_dob}} <br> <br>
                                     Phone: {{$profile->phone}} <br> <br>
                                     Address: {{$profile->profile_address}} <br> <br>

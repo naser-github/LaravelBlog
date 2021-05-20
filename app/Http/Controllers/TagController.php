@@ -7,6 +7,13 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+    //if we have to use middleware in controller
+    // public function __construct()
+    // {
+    //     $this->middleware('admin'); //applied on all function
+    //     $this->middleware('admin')->only(['function', 'name']); //applied on specific function
+    // }
+
     public function create()
     {
         return view ('tag.create');
@@ -32,9 +39,9 @@ class TagController extends Controller
 
     public function index()
     {
-        $tags = Tag::paginate(7);
+        //$tags = Tag::paginate(7);
 
-        return view('tag.index', compact('tags'));
+        return view('tag.index');
     }
 
     public function each_tag($id)

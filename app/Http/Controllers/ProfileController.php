@@ -30,7 +30,6 @@ class ProfileController extends Controller
     }
 
 
-
     public function update($id, Request $request){
         
         request()->validate([

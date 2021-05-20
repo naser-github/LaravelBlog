@@ -12,16 +12,6 @@
                 </a>
         </button>
 
-        @if(Auth::user()->role_id == 3)
-
-            <button class="btn btn-dark btn-lg" type="submit" name="submit" >
-                <a href="{{route('show_users')}}" class="text-white">
-                    Users List
-                </a>
-            </button>
-
-        @endif
-
         <div class="col-md-6 offset-md-3">
             {{--search bar--}}
             <div class="card bg-dark text-white">
@@ -44,7 +34,19 @@
                 </div>
             </div>
         </div>
-        <br> <hr>
+        <br>
+
+        @if(Auth::user()->role_id == 2)
+
+            <button class="btn btn-dark btn-lg" type="submit" name="submit" >
+                <a href="{{route('show_users')}}" class="text-white">
+                    Users List
+                </a>
+            </button>
+
+        @endif
+        <br><hr>
+
         
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -54,9 +56,15 @@
                             <h5>
                                 
                                 @foreach ($post->users as $author)
-                                    <a class="text-dark text-decoration-none " href="{{route('profile', $author->id)}}">
-                                        {{$author->name}}
-                                    </a>
+                                    @if($loop->last)
+                                        <a class="text-dark text-decoration-none " href="{{route('profile', $author->id)}}">
+                                            {{$author->name}}
+                                        </a>
+                                    @else
+                                        <a class="text-dark text-decoration-none " href="{{route('profile', $author->id)}}">
+                                            {{$author->name}},
+                                        </a>
+                                    @endif                                    
                                 @endforeach
                             </h5>
                                 

@@ -37,7 +37,7 @@
                             <button class="btn btn-dark btn-sm" type="submit" name="role" >
                                     Change Role to 
                                     
-                                @if ( $user->role_id == '3' )
+                                @if ( $user->role_id == '2' )
                                     Author
                                 @else
                                     Admin
@@ -60,6 +60,6 @@
             @endforeach
         </tbody>
         </table>
-       
+        {{ $users->links() }}
     </div>
 @endsection
