@@ -49,7 +49,7 @@
             <div class="mb-3 col-10">
                 <label for="post_body" class="form-label">Post</label>
                 <div class="form-floating">
-                    <textarea name="post_body" class="form-control @error ('post_body') is-invalid @enderror" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required>{{old('post_body')}}</textarea>
+                    <textarea id="post_body" name="post_body" class="form-control @error ('post_body') is-invalid @enderror" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" >{{old('post_body')}}</textarea>
                     @error('post_body')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$errors->first('post_body')}}</strong>
@@ -84,5 +84,16 @@
         $(function() {
             $('#category').select2();
         });
+    </script>
+
+    <script>
+        ClassicEditor
+                .create( document.querySelector( '#post_body' ) )
+                .then( post_body => {
+                        console.log( post_body );
+                } )
+                .catch( error => {
+                        console.error( error );
+                } );
     </script>
 @endsection

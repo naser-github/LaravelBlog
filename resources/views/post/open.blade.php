@@ -56,15 +56,14 @@
                             </form>
                         </div>
                         </div>
-                    </div>
-                    
+                    </div>                  
                     @endif
 
                     </h4>
                     <hr>
 
                     <p class="card-text">
-                        {{$post->post_body}}
+                        {!!$post->post_body!!}
                     </p>
 
                     @foreach ($post->postphotos as $photo)
@@ -172,9 +171,10 @@
             @endforeach
 
             <br>
+
             <div class="row justify-content-end">
                 <div class="col-10">
-                <form action="{{route('comment_post', $post->id)}}" method="POST"  enctype="multipart/form-data">
+                <form action="{{route('comment_post', $post->id)}}" id="comment_form" method="POST"  enctype="multipart/form-data">
                 @csrf
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="comment"></textarea>
@@ -190,6 +190,7 @@
                 </form>
                 </div>
             </div>
+
         </div> 
     </div>
 
@@ -197,4 +198,46 @@
 
 @section('template_script')
 
+    {{-- <script>
+        $(function(){
+            
+            $('#comment_form').submit(function(event) {
+
+                event.preventDefault();
+                
+                // var name = $('input[name="name"]').val();
+
+                var form_data = $(this).serialize();
+                // console.log(form_data);
+
+                var dat = {!! json_encode($post->id, JSON_HEX_TAG) !!};
+                console.log(dat);
+
+                // $.ajaxSetup({
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     }
+                // });
+                
+                $.ajax({
+                    
+                    url:'/post/add_comment/{{$post->id}}',
+                    //url:"{{ route('comment_post',"+dat+") }}",
+                    method: 'POST',
+                    data: form_data,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    success: function(err){
+                        console.log(err);
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                });
+                
+            });
+
+        });
+
+        
+    </script> --}}
 @endsection
